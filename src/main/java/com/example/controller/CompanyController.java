@@ -7,8 +7,6 @@ import com.example.dto.filter.DepartmentSearchCriteria;
 import com.example.dto.filter.EmployeeSearchCriteria;
 import com.example.service.DepartmentService;
 import com.example.service.EmployeeService;
-import com.example.service.impl.DepartmentServiceImpl;
-import com.example.service.impl.EmployeeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

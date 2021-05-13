@@ -33,7 +33,7 @@ public class PersistenceConfig {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
         em.setPersistenceUnitName("companyJpaPersistenceUnit");
-        em.setPackagesToScan(new String []{"com.example.entity"});
+        em.setPackagesToScan(new String[]{"com.example.entity"});
 
         em.setJpaVendorAdapter(jpaVendorAdapter);
         em.setJpaProperties(hibernateProperties());
@@ -41,9 +41,10 @@ public class PersistenceConfig {
         return em;
     }
 
-    private final Properties hibernateProperties() {
+    private Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "none");
+        hibernateProperties.setProperty("hibernate.show_sql", "false");
         hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
 
         return hibernateProperties;
@@ -52,15 +53,13 @@ public class PersistenceConfig {
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-        jpaVendorAdapter.setShowSql(true);
         jpaVendorAdapter.setGenerateDdl(false);
         return jpaVendorAdapter;
     }
 
     @Bean
     public PlatformTransactionManager transactionManager(LocalContainerEntityManagerFactoryBean entityManagerFactoryBean) {
-        JpaTransactionManager transactionManager = new JpaTransactionManager(entityManagerFactoryBean.getObject());
-        return transactionManager;
+        return new JpaTransactionManager(entityManagerFactoryBean.getObject());
     }
 
     @Bean

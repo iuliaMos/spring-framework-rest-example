@@ -8,7 +8,6 @@ import com.example.mapper.EmployeeMapper;
 import com.example.service.DepartmentService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -17,9 +16,10 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class DepartmentServiceImpl implements DepartmentService {
 
-    @Autowired
+    @NonNull
     private DepartmentDao departmentDao;
 
     public List<DepartmentDTO> getDepartmentList(final DepartmentSearchCriteria filter, Integer page, Integer size) {

@@ -4,6 +4,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -17,15 +18,17 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Bean
     public MessageSource messageSource() {
-        ResourceBundleMessageSource source = new ResourceBundleMessageSource();
-        source.setBasename("messages");
-        return source;
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+
+        messageSource.setBasename("classpath:messages");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
     }
 
-//    @Bean
-//    public Validator getValidator() {
-//        LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
-//        validator.setValidationMessageSource(messageSource());
-//        return validator;
-//    }
+    @Bean
+    public Validator getValidator() {
+        LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+        validator.setValidationMessageSource(messageSource());
+        return validator;
+    }
 }

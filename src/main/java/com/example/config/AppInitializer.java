@@ -11,7 +11,7 @@ import javax.servlet.ServletRegistration;
 public class AppInitializer implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext container) {
-        AnnotationConfigWebApplicationContext context= new AnnotationConfigWebApplicationContext();
+        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
         context.setConfigLocation("com.example.config");
 
         container.addListener(new ContextLoaderListener(context));

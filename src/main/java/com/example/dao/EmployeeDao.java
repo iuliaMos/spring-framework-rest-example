@@ -7,7 +7,6 @@ import com.example.entity.Employee;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
