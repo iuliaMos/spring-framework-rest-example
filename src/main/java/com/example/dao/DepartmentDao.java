@@ -31,10 +31,10 @@ public class DepartmentDao extends AbstractJpaDAO<Department> implements IDepart
 
         List<Predicate> predicates = filterPredicate(filter, root, cb);
 
-        cq.where(!CollectionUtils.isEmpty(predicates) ? cb.and(predicates.stream().toArray(Predicate[]::new)) : cb.conjunction());
+        cq.where(!CollectionUtils.isEmpty(predicates) ? cb.and(predicates.toArray(Predicate[]::new)) : cb.conjunction());
 
         TypedQuery<Department> query = getEntityManager().createQuery(cq);
-        query.setFirstResult(page == 0 ? 0 : page * size);
+        query.setFirstResult(page * size);
         query.setMaxResults(size);
 
         return query.getResultList();
@@ -48,7 +48,7 @@ public class DepartmentDao extends AbstractJpaDAO<Department> implements IDepart
         }
 
         if (!Objects.isNull(filter.getName())) {
-            predicates.add(cb.like(root.get("name"), "%" + filter.getName() + "%"));
+            predicates.add(cb.like(root.get("name"), "%" + filter.getName().trim() + "%"));
         }
 
         return predicates;

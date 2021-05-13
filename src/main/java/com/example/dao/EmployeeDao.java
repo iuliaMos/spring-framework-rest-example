@@ -30,7 +30,7 @@ public class EmployeeDao extends AbstractJpaDAO<Employee> implements IEmployeeDa
 
         List<Predicate> predicates = filterPredicate(filter, root, cb);
 
-        cq.where(!CollectionUtils.isEmpty(predicates) ? cb.and(predicates.stream().toArray(Predicate[]::new)) : cb.conjunction());
+        cq.where(!CollectionUtils.isEmpty(predicates) ? cb.and(predicates.toArray(Predicate[]::new)) : cb.conjunction());
 
         cq.orderBy(cb.asc(root.get("department").get("name")));
 
@@ -45,11 +45,11 @@ public class EmployeeDao extends AbstractJpaDAO<Employee> implements IEmployeeDa
         }
 
         if (!Objects.isNull(filter.getName())) {
-            predicates.add(cb.like(root.get("name"), "%" + filter.getName() + "%"));
+            predicates.add(cb.like(root.get("name"), "%" + filter.getName().trim() + "%"));
         }
 
         if (!Objects.isNull(filter.getDepartment())) {
-            predicates.add(cb.like(root.get("department").get("name"), "%" + filter.getDepartment() + "%"));
+            predicates.add(cb.like(root.get("department").get("name"), "%" + filter.getDepartment().trim() + "%"));
         }
 
         return predicates;
