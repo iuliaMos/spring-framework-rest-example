@@ -34,8 +34,7 @@ public class CompanyController {
     @GetMapping("/department")
     public List<DepartmentDTO> getDepartments(@RequestParam(value = "page", required = false, defaultValue = "0") final Integer page,
                                               @RequestParam(value = "size", required = false, defaultValue = "10") final Integer size,
-                                              final DepartmentSearchCriteria filter
-    ) {
+                                              final DepartmentSearchCriteria filter) {
         log.info("Get Departments, {}", filter);
         return departmentService.getDepartmentList(filter, page, size);
     }
